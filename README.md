@@ -15,7 +15,7 @@
 ### 1. Клонируем репозиторий и переходим в него
 
 ```bash
-git clone https://github.com/your_username/windi_chat.git
+git clone https://github.com/MamontovAndrew/windi_chat.git
 cd windi_chat
 ```
 ### 2. Создаём .env
