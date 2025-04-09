@@ -20,6 +20,7 @@ cd windi_chat
 ```
 ### 2. Создаём .env
 Создайте файл .env в корне проекта:
+```text
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=secret123
 POSTGRES_DB=windi_chat
@@ -28,6 +29,7 @@ DATABASE_URL=postgresql+asyncpg://postgres:secret123@db:5432/windi_chat
 JWT_SECRET_KEY=mytopsecretkey
 JWT_ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
+```
 Эти переменные используются для настройки подключения к БД и генерации JWT-токенов.
 
 ### 3. Запускаем в Docker
@@ -47,17 +49,22 @@ PostgreSQL на localhost:5432
 ```bash
 docker compose exec app pytest
 ```
-Swagger UI
+
+## Swagger UI
 Swagger-документация доступна по адресу:
 http://localhost:8000/docs
+
 Для авторизации:
 
 Выполните POST /auth/register или POST /auth/login
+
 Нажмите кнопку Authorize в Swagger UI и вставьте почту и пароль, указанные при входе/регистрации
+
 
 Примеры API-запросов:
 
 1. Регистрация
+```text
 POST /auth/register
 Content-Type: application/json
 
@@ -66,44 +73,56 @@ Content-Type: application/json
   "email": "alice@example.com",
   "password": "secret"
 }
+```
 
 2. Авторизация
+```text
 POST /auth/login
 Content-Type: application/x-www-form-urlencoded
 username=alice@example.com&password=secret
+```
 Ответ:
+```text
 {
   "access_token": "your.jwt.token",
   "token_type": "bearer"
 }
+```
 
 3. Отправка сообщения
+```text
 POST /chat/message
 Authorization: Bearer <access_token>
 Content-Type: application/json
-
 {
   "recipient_id": 2,
   "text": "Привет, как дела?"
 }
+```
 Если приватного чата между пользователями ещё нет — он будет создан автоматически.
 
 4. Создание группы
+```text
 POST /chat/group
 Authorization: Bearer <access_token>
 Content-Type: application/json
-
 {
   "name": "Project Team",
   "participant_ids": [2, 3]
 }
+```
+
 5. Просмотр истории чата
+```text
 GET /chat/history/1?limit=50&offset=0
 Authorization: Bearer <access_token>
+```
 
 6. Отметка сообщения как прочитанного
+```text
 PATCH /chat/message/123/read
 Authorization: Bearer <access_token>
+```
 
 ## Архитектура директории
 |Компонент|Назначение|
